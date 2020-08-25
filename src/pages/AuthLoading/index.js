@@ -1,10 +1,15 @@
 import React from 'react';
-import {Text, StatusBar, StyleSheet, SafeAreaView} from 'react-native';
+import {
+  Text,
+  StatusBar,
+  StyleSheet,
+  SafeAreaView,
+  ImageBackground,
+  View,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {Flex, Loader, H3, Icon} from '@uiw/react-native';
-import Global from '../../global';
-import {logoLight} from '../../components/icons/signin';
-import Footer from '../../components/Footer';
+import Global from '../../global.js';
 
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
@@ -20,37 +25,20 @@ class AuthLoadingScreen extends React.Component {
       return children(token);
     }
     return (
-      <SafeAreaView style={styles.container}>
-        <Flex
-          direction="column"
-          justify="center"
-          align="center"
-          style={{flex: 1}}>
-          <StatusBar barStyle="light-content" />
-          <Flex
-            justify="center"
-            align="center"
-            direction="column"
-            style={styles.header}>
-            <Icon xml={logoLight} size={75} />
-            <H3 style={styles.title}>My APP</H3>
-          </Flex>
-          <Flex style={{height: 32, flex: 1, width: '100%'}}>
-            <Loader
-              loading={loading}
-              maskColor="transtion"
-              vertical
-              rounded={5}
-              tip={
-                <Text style={{color: '#fff', marginTop: 15}}>
-                  Verify login...
-                </Text>
-              }
-            />
-          </Flex>
-          <Footer style={{marginBottom: 20}} />
-        </Flex>
-      </SafeAreaView>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../../utils/img/333.jpeg')}
+          style={{flex: 1}}
+        />
+        <Loader
+          loading={loading}
+          maskColor="transtion"
+          color="#9bbcdd"
+          vertical
+          rounded={5}
+          tip={<Text style={{fontSize: 15}}>Verify login...</Text>}
+        />
+      </View>
     );
   }
 }
@@ -70,7 +58,7 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2F2F2F',
+    backgroundColor: '#9bbcdd',
   },
   header: {
     marginTop: 110,

@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   copyright: {
-    color: '#C2C2C2',
-    fontSize: 12,
+    color: 'black',
+    fontSize: 13,
   },
   company: {
     paddingTop: 10,
     paddingBottom: 3,
-    color: '#C2C2C2',
-    fontSize: 12,
+    color: 'black',
+    fontSize: 13,
   },
 });
