@@ -7,9 +7,25 @@ export const stackPageData = [
   {
     name: 'Home',
     component: Home,
-    options: {
-      // headerShown: false,
-      // header: () => null
+    options: ({navigation, route}) => {
+      let tabName = null;
+      if (route.state) {
+        const {routeNames, index} = route.state;
+        tabName = routeNames.filter((item, key) => key == index)[0];
+      }
+      return {
+        headerBackTitleVisible: false,
+        headerBackImage: () => <Image />,
+        title: !tabName
+          ? '发货'
+          : tabName == 'TransportHome'
+          ? '发货'
+          : tabName == 'OrderHome'
+          ? '订单'
+          : '我的',
+        headerStyle: {backgroundColor: '#04B4AE'},
+        headerTintColor: '#6E6E6E',
+      };
     },
   },
   {
@@ -24,6 +40,8 @@ export const stackPageData = [
     name: 'DevOptions',
     component: DevOptions,
     options: {
+      headerStyle: {backgroundColor: '#eb4f46'},
+      headerTintColor: '#ffffff',
       headerShown: false,
       header: () => null,
     },
