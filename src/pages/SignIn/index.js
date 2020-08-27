@@ -3,24 +3,43 @@ import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   TextInput,
-  View,
+  SafeAreaView,
   StyleSheet,
   StatusBar,
   Text,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Platform,
   ImageBackground,
 } from 'react-native';
-import {Button, H4, Flex, Spacing, P, Icon, Avatar} from '@uiw/react-native';
+import {
+  Button,
+  ButtonGroup,
+  Flex,
+  Spacing,
+  P,
+  Icon,
+  U,
+} from '@uiw/react-native';
 
 import Global from '../../global';
 import Footer from '../../components/Footer';
-import {logoLight} from '../../components/icons/signin';
+import MyCountTime from '../../components/MyCountTime';
+
+import {username, mima, xxx, user} from '../../components/icons/signin';
 import conf from '../../config';
+import Title from './Title';
 
-class SigninScreen1 extends Component {
-  state = {
-    hostType: '',
-  };
-
+class SigninScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageState: false,
+      hostType: '',
+    };
+  }
   async componentDidMount() {
     const {navigation} = this.props;
     if (navigation && Global) {
@@ -32,7 +51,10 @@ class SigninScreen1 extends Component {
     this.props.navigation.navigate('DevOptions');
   };
   onChangeUserName = (text) => this.props.updateForm({username: text});
-  onChangePassWord = (text) => this.props.updateForm({password: text});
+  onChangePassWord = (text) => {
+    this.props.updateForm({password: text});
+  };
+
   onSubmit = () => this.props.login();
 
   _getHostType = async () => {
@@ -48,80 +70,114 @@ class SigninScreen1 extends Component {
       });
     }
   };
+  onClick = () => {
+    this.props.updateForm({username: ''});
+  };
 
   render() {
-    const {formData, loading} = this.props;
+    const {formData, loading, navigation} = this.props;
     const {hostType} = this.state;
 
     return (
-      <View style={styles.block}>
+      <SafeAreaView style={styles.block}>
         <ImageBackground
-          source={require('../../utils/img/333.jpeg')}
+          source={require('../../utils/img/t4.jpeg')}
           style={{flex: 1}}>
-          <StatusBar barStyle="light-content" />
-          {/* {
-          !conf.production && <Flex justify="end">
-            <Button bordered={false} style={styles.setting} onPress={this.goToOptions}>
-              <Icon bordered={false} name="setting" fill="#FFCB00" />
-            </Button>
-          </Flex>
-        } */}
-
-          <Flex align="center" direction="column" style={{flex: 1}}>
-            <Flex
-              justify="center"
-              align="center"
-              direction="column"
-              style={styles.header}>
-              {/* <Avatar size={100} shape='circle' src={require('../../utils/img/01.png')} /> */}
-              <H4 style={styles.titie}>登录</H4>
-              {/* {
-                !conf.production && <Text style={styles.hostNotice}>{hostType}</Text>
-              } */}
-              {/* <P style={styles.description}>Enter username and password.</P> */}
-            </Flex>
+          <StatusBar barStyle="dark-content" />
+          {/* 增加判断，在登录页面，如果是安卓，则手机状态栏变成白色 */}
+          {Platform.OS === 'ios' ? null : <StatusBar backgroundColor="#fff" />}
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            style={{flex: 1}}
+            scrollEnabled={false}>
             <Flex align="center" direction="column" style={{flex: 1}}>
               <Flex
-                style={styles.content}
-                direction="column"
                 justify="center"
-                align="center">
-                <TextInput
-                  value={formData.username}
-                  autoCorrect={false}
-                  placeholderTextColor="#696969"
-                  placeholder="请输入用户名"
-                  style={styles.input}
-                  onChangeText={this.onChangeUserName}
-                />
-                <Spacing size={12} />
-                <TextInput
-                  value={formData.password}
-                  placeholderTextColor="#696969"
-                  placeholder="请输入密码"
-                  maxLength={12}
-                  autoCompleteType="password"
-                  secureTextEntry={true}
-                  style={styles.input}
-                  onChangeText={this.onChangePassWord}
-                />
-                <Spacing size={23} />
-                <Button
-                  style={styles.button}
-                  textStyle={{fontSize: 16, fontWeight: '200'}}
-                  bordered={false}
-                  color="#a18589"
-                  loading={loading.login}
-                  disabled={loading.login}
-                  onPress={this.onSubmit}>
-                  登录
-                </Button>
+                align="center"
+                direction="column"
+                style={{height: 260}}>
+                {/* <Image style={{ width: 100, height: 80 }} source={require('../../utils/img/WechatIMG6.png')} /> */}
+                <Title>Happy Life</Title>
+              </Flex>
+              <Flex
+                align="center"
+                direction="column"
+                style={{flex: 1, marginHorizontal: 45}}>
+                <Flex
+                  align="center"
+                  style={{
+                    borderBottomColor: '#848484',
+                    borderBottomWidth: 1,
+                    backgroundColor: 'rgba(178,178,178,0.8)',
+                  }}>
+                  <Icon style={styles.icons} xml={user} size={24}></Icon>
+                  <TextInput
+                    value={formData.username}
+                    autoCorrect={false}
+                    placeholderTextColor="#190710"
+                    placeholder="请输入用户名"
+                    style={styles.input}
+                    onChangeText={this.onChangeUserName}
+                    keyboardType="number-pad"
+
+                    // clearButtonMode="while-editing"
+                  />
+
+                  {formData.username ? (
+                    <TouchableWithoutFeedback
+                      onPress={() => {
+                        this.onClick();
+                      }}>
+                      <View style={styles.topIcons}>
+                        <Icon xml={xxx} size={18}></Icon>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  ) : null}
+                </Flex>
+
+                <Flex
+                  align="center"
+                  style={{
+                    borderBottomColor: '#bfbfbf',
+                    borderBottomWidth: 1,
+                    backgroundColor: 'rgba(178,178,178,0.8)',
+                  }}>
+                  <Icon style={styles.icons} xml={mima} size={24}></Icon>
+                  <TextInput
+                    value={formData.password}
+                    placeholder="请输入验证码"
+                    placeholderTextColor="#190710"
+                    autoCompleteType="password"
+                    maxLength={6}
+                    style={styles.input}
+                    onChangeText={this.onChangePassWord}
+                    // secureTextEntry={!this.state.imageState} //是否隐藏
+                  />
+                  <View>
+                    <MyCountTime timeLeft={90} />
+                  </View>
+                </Flex>
+                <Spacing size={15} />
+                <Flex align="center">
+                  <Button
+                    style={styles.button}
+                    textStyle={{color: '#fff'}}
+                    bordered={false}
+                    loading={loading.login}
+                    disabled={loading.login}
+                    onPress={() => {
+                      this.onSubmit();
+                    }}>
+                    登录
+                  </Button>
+                </Flex>
+                <Spacing size={15} />
               </Flex>
             </Flex>
-            <Footer />
-          </Flex>
+          </ScrollView>
+          <Footer navigation={navigation} />
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -134,61 +190,44 @@ export default connect(
   }),
   ({users}) => ({
     login: users.login,
+    // register: users.register,
     update: users.update,
     updateForm: users.updateForm,
   }),
-)(SigninScreen1);
+)(SigninScreen);
 
 const styles = StyleSheet.create({
+  setting: {
+    position: 'absolute',
+  },
   block: {
     flex: 1,
-    backgroundColor: '#2F2F2F',
+    backgroundColor: '#fff',
   },
-  setting: {
-    marginRight: 16,
-  },
-  header: {
-    paddingTop: 150,
-    paddingBottom: 20,
-  },
-  titie: {
-    color: '#696969',
-    marginTop: 26,
-    marginBottom: 0,
-  },
-  description: {
-    color: '#fff',
-    fontSize: 12,
-    marginBottom: 0,
-    fontWeight: '200',
+  icons: {color: '#190710'},
+  nextIcons: {
+    position: 'absolute',
+    zIndex: 9,
+    right: 10,
   },
   input: {
+    flex: 1,
     width: 243,
-    backgroundColor: 'rgba(178,178,178,0.4)',
+    height: 40,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderRadius: 6,
-
     color: 'black',
     fontWeight: '200',
+
     fontSize: 16,
   },
   button: {
-    // marginTop: 10,
-    paddingHorizontal: 35,
+    width: '100%',
+    height: 45,
     paddingVertical: 4,
     backgroundColor: 'rgba(178,178,178,0.8)',
   },
-  hostNotice: {
-    right: -60,
-    top: -30,
-    width: 40,
-    height: 20,
-    borderRadius: 3,
-    overflow: 'hidden',
-    color: '#fff',
-    fontSize: 14,
-    textAlign: 'center',
-    backgroundColor: '#FFCB00',
+  topIcons: {
+    right: 10,
   },
 });

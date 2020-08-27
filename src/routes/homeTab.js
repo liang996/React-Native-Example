@@ -1,6 +1,7 @@
 import React from 'react';
 import {Icon} from '@uiw/react-native';
 import MyHome from '../pages/MyHome';
+import Find from '../pages/Find';
 import OrderHome from '../pages/OrderHome';
 import TransportHome from '../pages/TransportHome';
 
@@ -9,10 +10,26 @@ export default [
     name: 'TransportHome',
     component: TransportHome,
     options: {
-      title: '发货',
+      title: '首页',
       tabBarIcon: ({focused}) => {
         return (
-          <Icon name="home" size={22} color={focused ? '#04B4AE' : '#AAAAAB'} />
+          <Icon name="home" size={22} color={focused ? '#7d9bfc' : '#AAAAAB'} />
+        );
+      },
+    },
+  },
+  {
+    name: 'Find',
+    component: Find,
+    options: {
+      title: '发现',
+      tabBarIcon: ({focused}) => {
+        return (
+          <Icon
+            name="search"
+            size={22}
+            color={focused ? '#7d9bfc' : '#AAAAAB'}
+          />
         );
       },
     },
@@ -27,7 +44,7 @@ export default [
           <Icon
             name="file-text"
             size={22}
-            color={focused ? '#04B4AE' : '#AAAAAB'}
+            color={focused ? '#7d9bfc' : '#AAAAAB'}
           />
         );
       },
@@ -40,7 +57,7 @@ export default [
       title: '我的',
       tabBarIcon: ({focused}) => {
         return (
-          <Icon name="user" size={22} color={focused ? '#04B4AE' : '#AAAAAB'} />
+          <Icon name="user" size={22} color={focused ? '#7d9bfc' : '#AAAAAB'} />
         );
       },
     },

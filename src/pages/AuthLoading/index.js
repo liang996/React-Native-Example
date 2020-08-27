@@ -27,7 +27,7 @@ class AuthLoadingScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ImageBackground
-          source={require('../../utils/img/333.jpeg')}
+          source={require('../../utils/img/t4.jpeg')}
           style={{flex: 1}}
         />
         <Loader

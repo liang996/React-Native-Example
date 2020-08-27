@@ -2,6 +2,7 @@ import Home from '../pages/Home';
 import SignIn from '../pages/SignIn';
 import DevOptions from '../pages/DevOptions';
 import MyHomeSetting from '../pages/MyHome/Setting';
+let headerBackTitle = '返回';
 
 export const stackPageData = [
   {
@@ -17,14 +18,16 @@ export const stackPageData = [
         headerBackTitleVisible: false,
         headerBackImage: () => <Image />,
         title: !tabName
-          ? '发货'
+          ? '首页'
           : tabName == 'TransportHome'
-          ? '发货'
+          ? '首页'
+          : tabName == 'Find'
+          ? '发现'
           : tabName == 'OrderHome'
           ? '订单'
           : '我的',
-        headerStyle: {backgroundColor: '#04B4AE'},
-        headerTintColor: '#6E6E6E',
+        headerStyle: {backgroundColor: '#7d9bfc'},
+        headerTintColor: '#fff',
       };
     },
   },
@@ -40,8 +43,8 @@ export const stackPageData = [
     name: 'DevOptions',
     component: DevOptions,
     options: {
-      headerStyle: {backgroundColor: '#eb4f46'},
-      headerTintColor: '#ffffff',
+      headerStyle: {backgroundColor: '#7d9bfc'},
+      headerTintColor: '#100719',
       headerShown: false,
       header: () => null,
     },
@@ -51,6 +54,9 @@ export const stackPageData = [
     component: MyHomeSetting,
     options: {
       title: '设置',
+      headerBackTitle,
+      headerStyle: {backgroundColor: '#7d9bfc'},
+      headerTintColor: '#100719',
     },
   },
 ];

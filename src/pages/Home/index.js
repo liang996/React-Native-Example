@@ -4,8 +4,8 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import homeTabData from '../../routes/homeTab';
 
-const tabfocusedColor = '#86B404';
-const tabColor = '#04B4AE';
+const tabfocusedColor = '#7d9bfc';
+const tabColor = '#AAAAAB';
 
 function CustomTabBar({state, descriptors, navigation}) {
   return (

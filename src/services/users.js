@@ -20,6 +20,15 @@ export async function userLogin(params) {
 }
 
 /**
+ * 验证码
+ */
+export async function userSmsCode(params) {
+  return fetch('/api/getSmsCode', {
+    body: params,
+  });
+}
+
+/**
  * logout
  */
 export async function userLogout(params) {
