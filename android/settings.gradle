@@ -1,3 +1,6 @@
 rootProject.name = 'MyRN'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
+include ':react-native-image-picker'  //配置安卓拍照，参考文档https://github.com/react-native-community/react-native-image-picker/blob/341e95491bab55bb83ac92a9abfade7377a1c9fd/docs/Install.md
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')   //配置安卓拍照
+

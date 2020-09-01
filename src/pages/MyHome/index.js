@@ -23,8 +23,49 @@ import {
   byanjing,
   kyanjing,
 } from '../../components/icons/signin';
+import ImagePicker from 'react-native-image-picker';
 
+const photoOptions = {
+  title: '请选择',
+  quality: 0.8,
+  cancelButtonTitle: '取消',
+  takePhotoButtonTitle: '拍照',
+  chooseFromLibraryButtonTitle: '选择相册',
+  allowsEditing: true,
+  noData: false,
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 export default class MyScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      avatarSource: '',
+    };
+    this.choosePicker = this.choosePicker.bind(this);
+  }
+  choosePicker() {
+    ImagePicker.showImagePicker(photoOptions, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        let source = {uri: response.uri};
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
+  }
+
   star = (num) => {
     let starNum = [];
     let length = num;
@@ -39,21 +80,33 @@ export default class MyScreen extends Component {
     }
     return starNum;
   };
+
   render() {
     const {navigation} = this.props;
+    const {avatarSource} = this.state;
+
     return (
       <SafeAreaView style={{flex: 1}}>
         <ScrollView
           refreshControl={<RefreshControl refreshing={false} />}
           showsVerticalScrollIndicator={false}>
           <View style={styles.topInfo}>
-            <View style={styles.topImg}>
-              <Image
-                resizeMode={'stretch'}
-                style={styles.img}
-                source={require('../../utils/img/t4.jpeg')}
-              />
-            </View>
+            <TouchableOpacity onPress={this.choosePicker}>
+              {avatarSource == '' ? (
+                <View style={styles.topImg}>
+                  <Image
+                    resizeMode={'stretch'}
+                    style={styles.img}
+                    source={require('../../utils/img/t4.jpeg')}
+                  />
+                </View>
+              ) : (
+                <View style={styles.topImg}>
+                  <Image source={this.state.avatarSource} style={styles.img} />
+                </View>
+              )}
+            </TouchableOpacity>
+
             <View style={styles.topInfoCen}>
               <View style={{flexDirection: 'row', marginHorizontal: -25}}>
                 <Text style={styles.topUser}>18207211063</Text>
