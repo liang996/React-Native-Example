@@ -55,7 +55,7 @@
     "jest": "^25.1.0",
     "lint-staged": "10.2.2",
     "metro-react-native-babel-preset": "^0.59.0",
-    "mocker-api": "2.1.0",
+    "mocker-api": "2.9.5",
     "prettier": "2.0.5",
     "react-test-renderer": "16.13.1"
   },
